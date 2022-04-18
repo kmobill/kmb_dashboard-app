@@ -1,25 +1,35 @@
-import logo from './logo.svg';
-import './App.css';
+import React,{useEffect, useState} from "react";
+import Dashboard from "./components/Dashboard";
+
 
 function App() {
-  return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+
+  const [data, setData]= useState([{}])
+  const [loading, setLoading] = useState(true);
+  useEffect(
+    ()=>{
+     fetch("/Dashboard").then(
+        res => res.json()
+    ).then(
+        data => {
+            setData(data)
+            console.log(data)
+            setLoading(false)
+        }
+    )
+  },[])
+
+  if(loading === true){
+    <div>
+      <h1>cargando datos...</h1>
     </div>
-  );
+  }else{
+    return (
+      <div>
+        <Dashboard data={data}/>
+      </div>
+    );
+  }
 }
 
 export default App;
