@@ -1,5 +1,7 @@
-import React,{useEffect, useState} from "react";
+/* import React,{useEffect, useState} from "react";
+import Carousel from "./components/Carousel";
 import Dashboard from "./components/Dashboard";
+import Footer from "./components/Footer";
 
 
 function App() {
@@ -26,10 +28,35 @@ function App() {
   }else{
     return (
       <div>
+        <Carousel data={data}/>   
         <Dashboard data={data}/>
+        <Footer/>
       </div>
     );
   }
+}
+
+export default App;
+ */
+import React,{useEffect, useState} from "react";
+import Carousel_container from "./components/DashboardContainer";
+import Dashboard from "./components/Dashboard";
+import Footer from "./components/Footer";
+import * as bootstrap from 'bootstrap';
+import DashboardContainer from "./components/DashboardContainer";
+import Header from "./components/Header";
+
+
+function App() { 
+
+    return (
+      <div>
+        <Header/>
+        <DashboardContainer/>   
+        <Footer/>
+      </div>
+    );
+  
 }
 
 export default App;

@@ -22,31 +22,25 @@ ChartJS.register(
   Legend,
   Filler
 );
+const labels = [100, 200, 300, 400, 700];
+const scores = [11, 16, 7, 3, 14]
 const options = {
-    responsive: true,
-};
-const labels = ["Red", "Green", "Yellow", "Grey", "Blue"]
-
-
-export default function LineChart() {
     
+};
+
+
+
+export default function LineChart() {    
     const data = useMemo (function(){
         return {    
             datasets: [
                 {
                     label: "My First Dataset",
-                    data: [11, 16, 7, 3, 14],
-                    backgroundColor: [
-                    "rgb(255, 99, 132)",
-                    "rgb(75, 192, 192)",
-                    "rgb(255, 205, 86)",
-                    "rgb(201, 203, 207)",
-                    "rgb(54, 162, 235)",
-                    ],
+                    data: scores
                 },
             ],
-            labels,
-        }
+            labels:[],
+        };
     },[]);
-  return <PolarArea data={data} options={options}/>;
+  return (<PolarArea data={data} options={options}/>);
 }

@@ -1,0 +1,13 @@
+.check__2{
+    margin-left: 1rem;
+    font-size : clamp(0.2rem, 2vw, 0.8rem);
+}
+.check__1{
+    font-size : clamp(0.3rem, 2vw, 0.9rem);
+}
+.accordion-button,.accordion-collapse,.accordion-body{
+    max-height: 2rem;
+}
+.contenerdor_accordion{
+    width: 100%;
+}

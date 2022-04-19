@@ -8,7 +8,7 @@ import Acordeon from './graphs/Acordeon';
 import Table from './graphs/Table';
 import PieChart from './graphs/PieChart';
 
-const Dashboard = (props) => {
+const Dashboard2 = (props) => {
     const [data3, setData3]= useState([{}])
     const [loading, setLoading] = useState(true);
     useEffect(
@@ -40,24 +40,22 @@ const Dashboard = (props) => {
   return (
     <div className='container'> 
       <div className='card-group mb-3 col-12'>
-          <Card calendar= {true} width='8' title="Fecha" component = {<RangeBar/>}/>
-          <Card scrolleable ={true} width='2' title="Acordeon" component = {<Acordeon data={data}/>}/>
-          <Card width='2' title="Grafico de barras" component = {<BarChart/>}/>
-      </div>
-      <div className='card-group mb-3 col-12'>
           <Card scrolleable ={true} title="Tabla" component = {<Table/>}/>
           <Card scrolleable ={true} title="Grafico de barras" component = {<BarChart horizontal={true}/>}/>
           <Card title="Pastel" component = {<PieChart/>}/>
       </div>
       <div className='card-group mb-3 col-12'>
-          <Card scrolleable ={true} title="Tabla" component = {<Table/>}/>
           <Card title="Grafico de barras" component = {<BarChart horizontal={true}/>}/>
-          <Card title="Pastel" component = {<PieChart/>}/>
           <Card title="Grafico de linea" component = {<LineChart data={data_ejemplo}/>}/>
       </div>        
+      <div className='card-group mb-3 col-12'>
+          <Card calendar= {true} width='8' title="Fecha" component = {<RangeBar/>}/>
+          <Card scrolleable ={true} width='2' title="Acordeon" component = {<Acordeon data={data}/>}/>
+          <Card width='2' title="Grafico de barras" component = {<BarChart/>}/>
+      </div>
     </div>  
     )
   }
 }
 
-export default Dashboard
+export default Dashboard2

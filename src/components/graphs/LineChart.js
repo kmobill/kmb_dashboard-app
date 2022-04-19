@@ -24,26 +24,25 @@ ChartJS.register(
   Filler
 );
 
-
-
-
 const options ={
   responsive: true,
 };
 
 export default function LineChart(props){
-  const labels =  props.labels;
+  const labels =  props.data.labels;
+  const scores = props.data.scores
   const data = useMemo(function(){
     return{      
       datasets: [
         {
           label: "Mis datos",
-          data: props.scores,
+          data: scores,
           tension: 0.3,
           borderColor: "rgb(75, 192, 192)",
           pointRadius: 6,
           pointBackgroundColor: "rgb(75, 192, 192)",
           backgroundColor: "rgba(75, 192, 192, 0.3)",
+          fill: true
         }
       ],
       labels,

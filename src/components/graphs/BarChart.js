@@ -23,8 +23,8 @@ ChartJS.register(
   Filler
 );
 
-const scores = [6, 5, 5, 5, 3, 4, 6, 4, 5];
-const labels = [100, 200, 300, 400, 500, 600, 700];
+const scores = [6, 5, 5, 5, 3, 4, 6, 4, 5,3,2,1,2,3];
+const labels = [100, 200, 300, 400, 500, 600, 700,800,900,1000,1100,1200];
 
 const options = {
   fill: true,
@@ -41,8 +41,26 @@ const options = {
     },
   },
 };
+const options2= {
+  indexAxis: 'y',  
+  elements: {
+    bar: {
+      borderWidth: 2,
+    }
+  },
+  responsive: true,
+  plugins: {
+    legend: {
+      position: 'right',
+    },
+    title: {
+      display: true,
+      text: 'Chart.js Horizontal Bar Chart'
+    }
+  }
+}
 
-export default function BarChart() {
+export default function BarChart(props) {
   const data = useMemo(function () {
     return {
       datasets: [
@@ -60,7 +78,7 @@ export default function BarChart() {
 
   return (
     <div>
-      <Bar data={data} options={options} />
+      <Bar data={data} options={props.horizontal? options2:options} />
     </div>
   );
 }

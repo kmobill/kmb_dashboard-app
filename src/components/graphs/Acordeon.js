@@ -1,29 +1,40 @@
 import React from 'react'
-
-const Acordeon = () => {
+import * as bootstrap from 'bootstrap';
+import "./Acordeon.css";
+const Acordeon = (props) => {
   return (
-    <div class="accordion accordion-flush" id="accordionFlushExample">
-        <div class="accordion-item">
-            <h2 class="accordion-header" id="flush-headingOne">
-            <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#flush-collapseOne" aria-expanded="false" aria-controls="flush-collapseOne">
-                Accordion Item #1
-            </button>
-            </h2>
-            <div id="flush-collapseOne" class="accordion-collapse collapse" aria-labelledby="flush-headingOne" data-bs-parent="#accordionFlushExample">
-            <div class="accordion-body">Placeholder content for this accordion, which is intended to demonstrate the <code>.accordion-flush</code> class. This is the first item's accordion body.</div>
+      
+     <>
+        {props.data.map((name,key) =>(  
+            <div className='contenerdor_accordion' key={key}>             
+                <div className="accordion" id="accordionPanelsStayOpenExample">
+                    <div className="accordion-item">
+                        <h2 className="accordion-header" id={"panelsStayOpen-heading"+key}>                    
+                            <button className="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target={"#panelsStayOpen-collapse"+key} aria-expanded="true" aria-controls={"panelsStayOpen-collapse"+key}>
+                                <div className="form-check check__1">
+                                    <input className="form-check-input" type="checkbox" value="" id="flexCheckDefault"/>
+                                    <label className="form-check-label" htmlFor="flexCheckDefault">
+                                        {name}
+                                    </label>
+                                </div>
+                            </button>
+                        </h2>
+            {/* {name.maps((subname) => */}
+                        <div id={"panelsStayOpen-collapse"+key} className="accordion-collapse collapse show" aria-labelledby={"panelsStayOpen-heading"+key}>
+                            <div className="accordion-body">
+                                <div className="form-check check__2">
+                                    <input className="form-check-input" type="checkbox" value="" id="flexCheckDefault"/>
+                                    <label className="form-check-label" htmlFor="flexCheckDefault">
+                                        asdasd
+                                    </label>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
             </div>
-        </div>        
-        <div class="accordion-item">
-            <h2 class="accordion-header" id="flush-headingThree">
-            <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#flush-collapseThree" aria-expanded="false" aria-controls="flush-collapseThree">
-                Accordion Item #3
-            </button>
-            </h2>
-            <div id="flush-collapseThree" class="accordion-collapse collapse" aria-labelledby="flush-headingThree" data-bs-parent="#accordionFlushExample">
-            <div class="accordion-body">Placeholder content for this accordion, which is intended to demonstrate the <code>.accordion-flush</code> class. This is the third item's accordion body. Nothing more exciting happening here in terms of content, but just filling up the space to make it look, at least at first glance, a bit more representative of how this would look in a real-world application.</div>
-            </div>
-        </div>
-    </div>
+        ))}        
+     </> 
   )
 }
 
