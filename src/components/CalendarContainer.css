@@ -1,0 +1,15 @@
+.calendar__container{
+    display: flex;   
+    margin: 2rem 0 0 0; 
+}
+.calendar__box input{
+    width: 70%;
+    text-align: center;
+    border-radius: 1rem;
+}
+
+.react-datepicker__input-container{
+    display: flex;
+    justify-content: center;
+    font-size : clamp(0.5rem, 1vw, 2rem);
+}

@@ -10,19 +10,24 @@ import PieChart from './graphs/PieChart';
 
 const Dashboard2 = (props) => {
     const [data3, setData3]= useState([{}])
+    const [data5, setData5]= useState([{}])
     const [loading, setLoading] = useState(true);
-    useEffect(
-      ()=>{
-      fetch("/Dashboard").then(
+    const recibirCampañas = ()=>{
+      fetch("/Campañas").then(
           res => res.json()
       ).then(
           data => {
-              setData3(data)
-              console.log(data)
-              setLoading(false)
+              setData5(data)
+              console.log("data5 Campañas",data5)              
           }
       )
-    },[])
+    }
+
+
+    useEffect(() => {
+      recibirCampañas()
+      setLoading(false)      
+},[])
 
     if(loading === true){
       <div>

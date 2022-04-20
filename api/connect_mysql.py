@@ -25,16 +25,12 @@ def consulta(operation):
     cursor = connection.cursor()
     #operation= "SELECT count(ID) FROM campaniasinbound.trx"
     cursor.execute(operation)
-    result = cursor.fetchall()         
-            
+    result = cursor.fetchall()
     return result
-    #print("the result is: {}".format(result)) 
-
-    """ json_output = json.dumps(my_query)
-
-    print("Imprimiendo consulta: ",my_query) """
 
 def finalizar():
     if connection.is_connected():
         connection.close()
         print("Conexion finalizada")
+def message_succesfull():
+    print('exito!')

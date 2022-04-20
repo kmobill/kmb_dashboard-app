@@ -45,6 +45,7 @@ import Footer from "./components/Footer";
 import * as bootstrap from 'bootstrap';
 import DashboardContainer from "./components/DashboardContainer";
 import Header from "./components/Header";
+import EjemploPOST from "./components/EjemploPOST";
 
 
 function App() { 
@@ -52,7 +53,8 @@ function App() {
     return (
       <div>
         <Header/>
-        <DashboardContainer/>   
+       <DashboardContainer/>
+        {/* <EjemploPOST id={1}/> */}
         <Footer/>
       </div>
     );

@@ -12,10 +12,9 @@
   background: white;
   border-radius:1rem;
   border-collapse: collapse;
-  margin: auto;
-  padding:1rem;
   box-shadow: 0 5px 10px rgba(0, 0, 0, 0.1);
   animation: float 5s infinite;
+  width: 100%;
 }
  
 th {
@@ -65,11 +64,10 @@ tr:last-child td:last-child {
  
 td {
   background:#FFFFFF;
-  padding:20px;
   text-align:left;
+  padding: 0.5rem;
   vertical-align:middle;
-  font-weight:300;
-  font-size:18px;
+  max-height: 10px;
   text-shadow: -1px -1px 1px rgba(0, 0, 0, 0.1);
   border-right: 1px solid #C1C3D1;
 }

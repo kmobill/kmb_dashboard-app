@@ -2,3 +2,10 @@
     height: 25vh;
     overflow-y: auto;
 }
+.card-body__items{
+   /*  background-color: darkblue; */
+}
+.calendar__title{
+    text-align: center;
+    margin: 1rem 0;
+}

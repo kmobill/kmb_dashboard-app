@@ -1,11 +1,10 @@
 import React from 'react'
-
+import "./RangeBar.css"
 const RangeBar = () => {
   return (
-    <>
-        <label htmlFor="customRange1" className="form-label">Date range</label>
+    <div className='range__container'>        
         <input type="range" className="form-range" id="customRange1"></input>      
-    </>    
+    </div>    
   )
 }
 

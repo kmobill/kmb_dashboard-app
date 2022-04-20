@@ -6,7 +6,8 @@
     font-size : clamp(0.3rem, 2vw, 0.9rem);
 }
 .accordion-button,.accordion-collapse,.accordion-body{
-    max-height: 2rem;
+    max-height: 3rem;
+    padding: 0;
 }
 .contenerdor_accordion{
     width: 100%;

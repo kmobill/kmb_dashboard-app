@@ -1,0 +1,10 @@
+.range__container{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    align-content: center;
+    font-size : clamp(0.5rem, 1vw, 2rem);
+    margin: auto;
+    margin-top: 2rem;
+    width: 80%;
+}
