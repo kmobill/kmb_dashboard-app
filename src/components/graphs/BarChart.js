@@ -10,7 +10,7 @@ import {
   Legend,
   Filler,
 } from "chart.js";
-import { Bar } from "react-chartjs-2";
+import { Bar, Chart } from "react-chartjs-2";
 
 ChartJS.register(
   CategoryScale,
@@ -23,8 +23,8 @@ ChartJS.register(
   Filler
 );
 
-const scores = [6, 5, 5, 5, 3, 4, 6, 4, 5,3,2,1,2,3];
-const labels = [100, 200, 300, 400, 500, 600, 700,800,900,1000,1100,1200];
+/* const scores = [6, 5, 5, 5, 3, 4, 6, 4, 5,3,2,1,2,3];
+const labels = [100, 200, 300, 400, 500, 600, 700,800,900,1000,1100,1200]; */
 
 const options = {
   fill: true,
@@ -42,6 +42,15 @@ const options = {
   },
 };
 const options2= {
+  chart:{
+    canvas:{
+      parentNode:{
+        style:{
+          height:500
+        }
+      }
+    }
+  },
   indexAxis: 'y',  
   elements: {
     bar: {
@@ -51,21 +60,20 @@ const options2= {
   responsive: true,
   plugins: {
     legend: {
-      position: 'right',
-    },
-    title: {
-      display: true,
-      text: 'Chart.js Horizontal Bar Chart'
+      display: false,
     }
-  }
+  },
+  
 }
 
 export default function BarChart(props) {
+  const labels = props.data.labels
+  const scores = props.data.scores
   const data = useMemo(function () {
     return {
       datasets: [
         {
-          label: "Mis datos",
+          label: "Agentes",
           tension: 0.3,
           data: scores,
           borderColor: "rgb(75, 192, 192)",

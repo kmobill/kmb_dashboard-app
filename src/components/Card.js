@@ -4,7 +4,7 @@ import CalendarsContainer from './CalendarsContainer'
 import "./Card.css"
 const Card = (props) => {
   return (
-    <div  className={props.calendar?"card card__calendar col-xl-6 col-lg-6 col-md-6 col-sm-6 col-xs-6":"card col-xl-6 col-lg-6 col-md-6 col-sm-6 col-xs-6"}>
+    <div  className={props.table?"card card__table col-"+props.width:"card col-"+props.width}>
         <div className='card-header'>
             <h5 className="card-title">{props.title}</h5>    
         </div> 

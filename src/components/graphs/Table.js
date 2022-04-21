@@ -11,10 +11,10 @@ const Table = (props) => {
             </tr>
             </thead>
             <tbody className="table-hover">
-            {props.data.map((name,key) =>(
+            {props.data['nombre_agente'].map((data,key) =>(
               <tr key={key}>
-                <td  className="text-left">{name}</td>
-                <td className="text-left">Gestion</td>
+                <td  className="text-left">{data}</td>
+                <td className="text-left">{props.data['gestiones_agente'][key]}</td>
               </tr>
             ))}
             </tbody>

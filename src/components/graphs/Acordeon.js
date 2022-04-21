@@ -5,22 +5,23 @@ const Acordeon = (props) => {
   return (
       
      <>
-        {props.data.map((name,key) =>(  
-            <div className='contenerdor_accordion' key={key}>             
+        {/* {props.data.map((name,gestion,key) =>(  */} 
+            <div className='contenerdor_accordion' /* key={key} */>             
                 <div className="accordion" id="accordionPanelsStayOpenExample">
                     <div className="accordion-item">
-                        <h2 className="accordion-header" id={"panelsStayOpen-heading"+key}>                    
-                            <button className="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target={"#panelsStayOpen-collapse"+key} aria-expanded="true" aria-controls={"panelsStayOpen-collapse"+key}>
+                        <h2 className="accordion-header" id={"panelsStayOpen-heading"/* +key */}>                    
+                            <button className="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target={"#panelsStayOpen-collapse"/* +key */} aria-expanded="true" aria-controls={"panelsStayOpen-collapse"/* +key */}>
                                 <div className="form-check check__1">
                                     <input className="form-check-input" type="checkbox" value="" id="flexCheckDefault"/>
                                     <label className="form-check-label" htmlFor="flexCheckDefault">
-                                        {name}
+                                        {/* {name}
+                                        {gestion} */}
+                                        asdasd
                                     </label>
                                 </div>
                             </button>
                         </h2>
-            {/* {name.maps((subname) => */}
-                        <div id={"panelsStayOpen-collapse"+key} className="accordion-collapse collapse show" aria-labelledby={"panelsStayOpen-heading"+key}>
+                        <div id={"panelsStayOpen-collapse"/* +key */} className="accordion-collapse collapse show" aria-labelledby={"panelsStayOpen-heading"/* +key */}>
                             <div className="accordion-body">
                                 <div className="form-check check__2">
                                     <input className="form-check-input" type="checkbox" value="" id="flexCheckDefault"/>
@@ -33,7 +34,7 @@ const Acordeon = (props) => {
                     </div>
                 </div>
             </div>
-        ))}        
+        {/* ))}  */}       
      </> 
   )
 }

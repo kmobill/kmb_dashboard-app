@@ -5,12 +5,17 @@ body{
 .container{
     width: 100vw;
     min-height: 100vh;
+    padding: 0;
+    margin: 0;
 }
 .card__container{
     display: flex;
     flex-direction: row;
     justify-content: space-between;
     align-items:center;
+}
+.card__group{
+    display: flex;
 }
 
 .card{
@@ -20,6 +25,9 @@ body{
     box-shadow: 10px 10px 22px 3px rgba(0,0,0,0.31);
     -webkit-box-shadow: 10px 10px 22px 3px rgba(0,0,0,0.31);
     -moz-box-shadow: 10px 10px 22px 3px rgba(0,0,0,0.31);
+}
+.card__table{    
+    min-height: 500px;
 }
 .card-body h5,.card-body p,.card label, .card-header h5{
     font-weight: bold;

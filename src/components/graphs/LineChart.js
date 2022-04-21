@@ -35,11 +35,11 @@ export default function LineChart(props){
     return{      
       datasets: [
         {
-          label: "Mis datos",
+          label: props.legend,
           data: scores,
           tension: 0.3,
           borderColor: "rgb(75, 192, 192)",
-          pointRadius: 6,
+          pointRadius: 3,
           pointBackgroundColor: "rgb(75, 192, 192)",
           backgroundColor: "rgba(75, 192, 192, 0.3)",
           fill: true

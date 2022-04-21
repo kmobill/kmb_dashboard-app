@@ -4,6 +4,7 @@
 
 /*** Table Styles **/
 .table__container{
+  font-size: 8px;
   display: flex;
   justify-content: center;
   margin: 1rem 0;
@@ -20,7 +21,7 @@
 th {
   color:#D5DDE5;;
   background:#1b1e24;
-  font-size:small;
+  
   text-shadow: 0 1px 1px rgba(0, 0, 0, 0.1);
 }
   
@@ -28,7 +29,7 @@ tr {
   border-top: 1px solid #C1C3D1;
   border-bottom: 1px solid #C1C3D1;
   color:#666B85;
-  font-size:small;
+  
   text-shadow: 0 1px 1px rgba(256, 256, 256, 0.1);
 }
  
