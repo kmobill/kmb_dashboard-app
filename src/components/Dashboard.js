@@ -3,12 +3,8 @@ import BarChart from './graphs/BarChart'
 import LineChart from './graphs/LineChart'
 import "./Dashboard.css";
 import Card from './Card';
-import RangeBar from './graphs/RangeBar';
-import Acordeon from './graphs/Acordeon';
 import Table from './graphs/Table';
 import PieChart from './graphs/PieChart';
-import BasicDatePicker from './BasicDatePicker';
-import { CalendarContainer } from 'react-datepicker';
 import CalendarsContainer from './CalendarsContainer';
 import Table_motivos from './graphs/Table_motivos';
 
@@ -99,14 +95,14 @@ const Dashboard = (props) => {
   return (
     <div className='container'> 
       <div className='card__group mb-3 col-12'>
-          <Card calendar= {false} width='3' title="Fecha" component = {<CalendarsContainer/>}/>
+          <Card calendar= {false} width='2' title="Fecha" component = {<CalendarsContainer/>}/>
           {/* <Card scrolleable ={true} width='2' title="Acordeon" component = {<Acordeon data={dataCompleta['data']}/>}/> */}
           <Card width='6' title="Grafico de barras" component = {<BarChart data={data_gestiones_agentes} />}/>
+          <Card width='3' scrolleable ={true} title="Cantidad de Gestion por Agente" component = {<Table data ={dataCompleta['data']}/>}/>
       </div>
       <div className='card__group mb-3 col-12'>
-          <Card width='3' scrolleable ={true} title="Cantidad de Gestion por Agente" component = {<Table data ={dataCompleta['data']}/>}/>
-          <Card  width='5' title="Cantidad de Gestion por Agente" component = {<LineChart legend="Numero de gestiones por agente" data={data_gestiones_agentes}/>}/>
-          <Card width='3'title="Pastel" component = {<PieChart scores={data}/>}/>
+          <Card  width='6' title="Cantidad de Gestion por Agente" component = {<LineChart legend="Numero de gestiones por agente" data={data_gestiones_agentes}/>}/>
+          <Card width='5'title="Pastel" component = {<PieChart labels={data_llamadas_cuidad.labels} scores= {data_llamadas_cuidad.scores}/>}/>
       </div>
       <div className='card__group mb-3 col-12'>
           <Card table={true} width='12' scrolleable ={true} title="Motivos recibidos en función del agente" component = {<Table_motivos data ={dataCompleta['data']}/>}/>

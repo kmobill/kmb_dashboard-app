@@ -15,6 +15,7 @@ const DashboardContainer = (props) => {
       enableMouseSwipe={false}
   >
     <Dashboard/>
+    <Dashboard2/>
   </Carousel>
   </>
   )

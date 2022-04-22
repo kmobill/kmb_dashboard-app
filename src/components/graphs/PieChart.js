@@ -13,6 +13,7 @@ import {
   ArcElement
 } from "chart.js";
 import {Pie } from "react-chartjs-2";
+import { right } from "@popperjs/core";
 
 ChartJS.register(
   ArcElement,
@@ -32,7 +33,11 @@ const options ={
   plugins: {
     legend: {
         display: true,
+        position: 'left',
         labels: {
+          boxWidth:10,
+          render:'value',
+          precision:2,
           font:{
           size: 7
           }
@@ -49,7 +54,7 @@ export default function PieChart(props){
     return{      
       datasets: [{
         label: 'My First Dataset',
-        radius: props.radio,
+        radius: "100%",
         data: scores,
         offset: 2,
         borderWidth:1,

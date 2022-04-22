@@ -34,7 +34,7 @@ const CalendarsContainer = () => {
   }
 
   const ingresarFechas = ()=>{
-    fetch("/Fecha",{
+    fetch("/FechaREACT",{
       method: 'POST',
       body: JSON.stringify({
           dateInit: {value},
@@ -48,11 +48,8 @@ const CalendarsContainer = () => {
   }
 
   React.useEffect(()=>{
-    setTimeout(() => {
-      setCount((count) => count + 1);
-    }, 15000);
     ingresarFechas()         
-  },[count]           
+  },[{value2,value}]           
 )
   if(loading === true){
     <div>

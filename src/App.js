@@ -53,8 +53,7 @@ function App() {
     return (
       <div>
         <Header/>
-       <DashboardContainer/>
-        {/* <EjemploPOST id={1}/> */}
+       <DashboardContainer/>       
         <Footer/>
       </div>
     );
