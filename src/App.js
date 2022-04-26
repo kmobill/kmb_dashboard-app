@@ -46,6 +46,7 @@ import * as bootstrap from 'bootstrap';
 import DashboardContainer from "./components/DashboardContainer";
 import Header from "./components/Header";
 import EjemploPOST from "./components/EjemploPOST";
+import EjemploGet from "./components/EjemploGet";
 
 
 function App() { 
@@ -53,7 +54,7 @@ function App() {
     return (
       <div>
         <Header/>
-       <DashboardContainer/>       
+       <DashboardContainer/> 
         <Footer/>
       </div>
     );

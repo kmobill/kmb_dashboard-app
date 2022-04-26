@@ -37,19 +37,18 @@ const CalendarsContainer = () => {
     fetch("/FechaREACT",{
       method: 'POST',
       body: JSON.stringify({
-          dateInit: {value},
-          dateEnd: {value2}
+          dateInit: value,
+          dateEnd: value2
       })
       }).then(
-          data => {
+          console.log("enviando mediante POST"),
           setLoading(false)
-    }
     )
   }
 
   React.useEffect(()=>{
     ingresarFechas()         
-  },[{value2,value}]           
+  },[value,value2]           
 )
   if(loading === true){
     <div>

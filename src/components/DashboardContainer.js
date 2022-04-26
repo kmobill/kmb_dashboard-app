@@ -2,6 +2,8 @@ import React from 'react'
 import Dashboard from './Dashboard'
 import Carousel from 'react-elastic-carousel';
 import Dashboard2 from './Dashboard2';
+import EjemploGet from './EjemploGet';
+import EjemploPOST from './EjemploPOST';
 const DashboardContainer = (props) => {
   return (
   <>
@@ -14,8 +16,9 @@ const DashboardContainer = (props) => {
       preventDefaultTouchmoveEvent={true}
       enableMouseSwipe={false}
   >
-    <Dashboard/>
-    <Dashboard2/>
+    {/* <Dashboard/> */}
+    <EjemploGet/>
+    <EjemploPOST/>
   </Carousel>
   </>
   )

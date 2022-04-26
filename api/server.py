@@ -1,5 +1,7 @@
 from glob import glob
+import re
 from sqlite3 import connect
+from sys import flags
 from flask import Flask,request, request_finished
 from connect_mysql import *
 from unittest import result
@@ -8,7 +10,7 @@ from mysql.connector import Error
 
 
 app = Flask(__name__)
-
+cumulative=["fecha"]
 
 
 def finalizar():
@@ -72,7 +74,7 @@ def consulta_motivo_total2(Motivos):
     result_consultas=[]
     """ print("cant consulta:",aux) """
     result_total.append(aux)
-    print("resultado: ",result_total)
+    """ print("resultado: ",result_total) """
     return result_total
 
 def formatear_arreglo2(arreglo):
@@ -152,7 +154,7 @@ def consulta_gestiones_motivo2(Agentes,Motivos):
     except Error as e:
         print("Error al conectarse a MySQL", e)
 
-    print("Empezando consulta motivos")            
+    """ print("Empezando consulta motivos")    """         
     cursor = connection.cursor()
     result_total=[]
     result_agente=[]
@@ -167,61 +169,80 @@ def consulta_gestiones_motivo2(Agentes,Motivos):
         result_agente=[]
         """ print(aux) """
         result_total.append(aux)
-    print("resutlado final: ",result_total)
+    """ print("resutlado final: ",result_total) """
     return result_total
 """ @app.route("/Dashboard")
 def dashboard():    
     return {"data":resultadoCampañas} """
-dateInit='01/04/2021'
-dateEnd='22/04/2022'
 
-@app.route("/Consultas")
-def consultas():
-    result = consulta2("SELECT distinct(Agent) FROM campaniasinbound.trx")
-    resultadoCampañas2 = consulta2("SELECT distinct(Cooperativa) FROM campaniasinbound.trx")
+@app.route("/Consultas/Agentes")
+def Agentes():
+    resultadoAgentes2 = consulta2("SELECT distinct(Agent) FROM campaniasinbound.trx ")
+    resultadoAgentesGestiones2 = consulta_gestiones2(resultadoAgentes2)
+    data2 = {"nombre_agente":resultadoAgentes2,"gestiones_agente":resultadoAgentesGestiones2,"fecha":cumulative[0]['name']}
+    print("la data es:",data2)
+    return {"data":data2}
+
+""" @app.route("/Consultas/Motivos")
+def Motivos():
     resultadoAgentes2 = consulta2("SELECT distinct(Agent) FROM campaniasinbound.trx ")
     resultadoAgentesGestiones2 = consulta_gestiones2(resultadoAgentes2)#funciona
     motivo2 = consulta2("SELECT distinct(MotivoLlamada) FROM campaniasinbound.trx;")
-    #num_motivos2 = consulta_gestiones_motivo2(resultadoAgentes2,motivo2)#funciona
-   #motivo_total2 = consulta_motivo_total2(motivo2)
-    #ciudades2 = consulta2("SELECT distinct(CiudadCliente) from campaniasinbound.trx where CiudadCliente REGEXP'\D'")
-    #print("CIUDADES:",ciudades2)
-    #llamadas_por_ciudad2= formatear_arreglo2(consulta_gestion_ciudad2(ciudades2))
-    #ciudad_llamadas_por_ciudad2= {"ciudades":ciudades2,"llamadas_por_ciudad":llamadas_por_ciudad2}
-    
-    #data2 = {"nombre_agente":resultadoAgentes2,"num_motivos_por_agente":num_motivos2,"nombre_motivo":motivo2 ,"gestiones_agente":resultadoAgentesGestiones2,"motivo_total":motivo_total2,"ciudad_llamadas_por_ciudad":ciudad_llamadas_por_ciudad2} """
-    return {"motivos2":motivo2}
+    num_motivos2 = consulta_gestiones_motivo2(resultadoAgentes2,motivo2)#funciona
+    motivo_total2 = consulta_motivo_total2(motivo2)
+    data2 = {"nombre_agente":resultadoAgentes2,"num_motivos_por_agente":num_motivos2,"nombre_motivo":motivo2 ,"gestiones_agente":resultadoAgentesGestiones2,"motivo_total":motivo_total2}
+    return {"nombre_agente":data2}
+
+
+
+@app.route("/Consultas/Llamadas")
+def Llamadas():
+    ciudades2 = consulta2("SELECT distinct(CiudadCliente) from campaniasinbound.trx where CiudadCliente REGEXP'\D'")
+    llamadas_por_ciudad2= formatear_arreglo2(consulta_gestion_ciudad2(ciudades2))
+    ciudad_llamadas_por_ciudad2= {"ciudades":ciudades2,"llamadas_por_ciudad":llamadas_por_ciudad2}
+    data2 = {"ciudad_llamadas_por_ciudad":ciudad_llamadas_por_ciudad2}
+    print("la data es: ",data2)
+    return {"date":data2} """
 
 @app.route("/DataCompleta")
-def data():    
-    return {"data":data}
+def data():          
+    resultadoAgentes2 = consulta2("SELECT distinct(Agent) FROM campaniasinbound.trx ")
+    resultadoAgentesGestiones2 = consulta_gestiones2(resultadoAgentes2)#funciona
+    motivo2 = consulta2("SELECT distinct(MotivoLlamada) FROM campaniasinbound.trx;")
+    num_motivos2 = consulta_gestiones_motivo2(resultadoAgentes2,motivo2)#funciona
+    motivo_total2 = consulta_motivo_total2(motivo2)
+    ciudades2 = consulta2("SELECT distinct(CiudadCliente) from campaniasinbound.trx where CiudadCliente REGEXP'\D'")
+    llamadas_por_ciudad2= formatear_arreglo2(consulta_gestion_ciudad2(ciudades2))
+    ciudad_llamadas_por_ciudad2= {"ciudades":ciudades2,"llamadas_por_ciudad":llamadas_por_ciudad2}            
+    data2 = {"nombre_agente":resultadoAgentes2,"num_motivos_por_agente":num_motivos2,"nombre_motivo":motivo2 ,"gestiones_agente":resultadoAgentesGestiones2,"motivo_total":motivo_total2,"ciudad_llamadas_por_ciudad":ciudad_llamadas_por_ciudad2}
+    print("la data es: ",data2)
+    return {"date":data2}
 
-@app.route("/FechaREACT",methods=['POST','GET'])
+
+@app.route("/FechaREACT",methods=['POST'])
 def fecha_react():
-    global request_data_date
-    if request.method == 'POST':   
+    if request.method == 'POST':
         request_data_date = json.loads(request.data)
-        print("data date",request_data_date)
-    return {"date":request_data_date}
+        print("data date",request_data_date)        
+        cumulative[0] = (request_data_date)
+        
+
+        """ query_example = consulta2("SELECT distinct(Agent) FROM campaniasinbound.trx")        
+        resultadoCampañas2 = consulta2("SELECT distinct(Cooperativa) FROM campaniasinbound.trx")
+        resultadoAgentes2 = consulta2("SELECT distinct(Agent) FROM campaniasinbound.trx ")
+        resultadoAgentesGestiones2 = consulta_gestiones2(resultadoAgentes2)#funciona
+        motivo2 = consulta2("SELECT distinct(MotivoLlamada) FROM campaniasinbound.trx;")
+        num_motivos2 = consulta_gestiones_motivo2(resultadoAgentes2,motivo2)#funciona
+        motivo_total2 = consulta_motivo_total2(motivo2)
+        ciudades2 = consulta2("SELECT distinct(CiudadCliente) from campaniasinbound.trx where CiudadCliente REGEXP'\D'")
+                #print("CIUDADES:",ciudades2)
+        llamadas_por_ciudad2= formatear_arreglo2(consulta_gestion_ciudad2(ciudades2))
+        ciudad_llamadas_por_ciudad2= {"ciudades":ciudades2,"llamadas_por_ciudad":llamadas_por_ciudad2}            
+        data2 = {"nombre_agente":resultadoAgentes2,"num_motivos_por_agente":num_motivos2,"nombre_motivo":motivo2 ,"gestiones_agente":resultadoAgentesGestiones2,"motivo_total":motivo_total2,"ciudad_llamadas_por_ciudad":ciudad_llamadas_por_ciudad2}  """
 
 
 if __name__ == "__main__":
     data ={}
-    string= "SELECT distinct(Agent) FROM campaniasinbound.trx where (StartedManagement BETWEEN '{dateI}' AND '{dateE}')".format(dateI = dateInit, dateE= dateEnd)
-    """ print("la operacion ejecutandose es:",string) """
-    resultadoAgentes = consulta("SELECT distinct(Agent) FROM campaniasinbound.trx where (StartedManagement BETWEEN '{dateI}' AND '{dateE}')".format(dateI = dateInit, dateE= dateEnd))
-    resultadoCampañas = consulta("SELECT distinct(Cooperativa) FROM campaniasinbound.trx")
-    resultadoAgentesGestiones = consulta_gestiones(resultadoAgentes)
-    resultadoAgentes_final = {"nombre_agente":resultadoAgentes,"gestiones_agente":resultadoAgentesGestiones}
-    motivo = consulta("SELECT distinct(MotivoLlamada) FROM campaniasinbound.trx;")
-    num_motivos = consulta_gestiones_motivo(resultadoAgentes,motivo)
-    resultadoMotivos_final = {"nombre_agente":resultadoAgentes,"motivos":num_motivos}
-    motivo_total = consulta_motivo_total(motivo)
     
-    ciudades = consulta("SELECT distinct(CiudadCliente) from campaniasinbound.trx where CiudadCliente REGEXP'\D'")
-    llamadas_por_ciudad= formatear_arreglo(consulta_gestion_ciudad(ciudades))
-    ciudad_llamadas_por_ciudad= {"ciudades":ciudades,"llamadas_por_ciudad":llamadas_por_ciudad}
-    """ print(ciudades) """
-    data = {"nombre_agente":resultadoAgentes,"num_motivos_por_agente":num_motivos,"nombre_motivo":motivo ,"gestiones_agente":resultadoAgentesGestiones,"motivo_total":motivo_total,"ciudad_llamadas_por_ciudad":ciudad_llamadas_por_ciudad}
     finalizar()
     app.run(debug=True)
