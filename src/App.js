@@ -54,7 +54,7 @@ function App() {
     return (
       <div>
         <Header/>
-       <DashboardContainer/> 
+        <DashboardContainer/> 
         <Footer/>
       </div>
     );

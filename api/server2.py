@@ -9,7 +9,9 @@ import json
 
 app = Flask(__name__)
 
-fecha=["2022-01-01"]
+fecha={}
+fechaI=["2020-01-01"]
+fechaF=["2022-01-01"]
 resultadoAgentes =[""]
 resultadoAgentesGestiones=[]
 motivo=[]
@@ -154,7 +156,7 @@ def consulta_gestiones_motivo(Agentes,Motivos):
     if connection.is_connected():
         connection.close()
         cursor.close()
-        print("Conexion finalizada")
+        print("Conexion finalizada consulta gestion agentes")
     return result_total
 
 def consulta_motivo_total(Motivos):
@@ -187,16 +189,20 @@ def consulta_motivo_total(Motivos):
     if connection.is_connected():
         connection.close()
         cursor.close()
-        print("Conexion finalizada")
+        print("Conexion finalizada motivo total")
     return result_total
 
 @app.route("/fecha",methods=['POST','GET'])
 def fecha_react():
+    global fecha
     if request.method == 'POST':
         request_data_date = json.loads(request.data)
         print("fecha:",request_data_date)        
-        fecha[0] = (request_data_date)  
-    return {"fecha-POST":fecha[0]}
+        fecha = (request_data_date)
+        fechaI[0] = fecha['dateInit'] 
+        fechaF[0] = fecha['dateEnd']         
+        print("fecha final: {ff}, fecha inicial: {fi}".format(ff= fechaF[0],fi = fechaI[0])) 
+    return {"fecha-POST":fecha}
 
 
 """ @app.route("/Consultas/Llamadas")
@@ -206,28 +212,28 @@ def Llamadas():
 
 @app.route("/Consultas/Agentes")
 def Agentes():
-    dateInit = fecha[0]['name']
-    resultadoAgentes[0] = consulta("SELECT distinct(Agent) FROM campaniasinbound.trx where (StartedManagement between '{date_init}' and '2022-01-12')".format(date_init = dateInit))
+    print("fechaI Agentes: ",fechaI)
+    print("fechaF Agentes: ",fechaF)
+    resultadoAgentes[0] = consulta("SELECT distinct(Agent) FROM campaniasinbound.trx where (StartedManagement between '{date_init}' and '{date_final}')".format(date_init = fechaI[0],date_final = fechaF[0]))
     aux_resultadoAgentes = resultadoAgentes[0]
     resultadoAgentesGestiones = consulta_gestiones(aux_resultadoAgentes)
     return {"agentes":aux_resultadoAgentes,"num_gestiones":resultadoAgentesGestiones}
 
 @app.route("/Consultas/Llamadas")
 def Llamadas():
-    dateInit = fecha[0]['name']
-    ciudades2 = consulta("SELECT distinct(CiudadCliente) from campaniasinbound.trx where CiudadCliente REGEXP'\D' and (StartedManagement between '{date_init}' and '2022-01-12')".format(date_init = dateInit))
+    ciudades2 = consulta("SELECT distinct(CiudadCliente) from campaniasinbound.trx")
     llamadas_por_ciudad= formatear_arreglo(consulta_gestion_ciudad(ciudades2))
-    ciudad_llamadas_por_ciudad= {"ciudades":ciudades2,"llamadas_por_ciudad":llamadas_por_ciudad}
-    return {"ciudad_llamadas_por_ciudad":ciudad_llamadas_por_ciudad}
+    #ciudad_llamadas_por_ciudad= {"ciudades":ciudades2,"llamadas_por_ciudad":llamadas_por_ciudad}
+    return {"ciudades":ciudades2,"llamadas_por_ciudad":llamadas_por_ciudad}
 
 @app.route("/Consultas/Motivo")
 def Motivo():
-    dateInit = fecha[0]['name']
-    motivo = consulta("SELECT distinct(MotivoLlamada) FROM campaniasinbound.trx;")
+    motivo = consulta("SELECT distinct(MotivoLlamada) FROM campaniasinbound.trx")
     aux_resultadoAgentes= resultadoAgentes[0] 
-    num_motivos = consulta_gestiones_motivo(aux_resultadoAgentes,motivo)#funciona
+    """ num_motivos = consulta_gestiones_motivo(aux_resultadoAgentes,motivo)#funciona """
     motivo_total = consulta_motivo_total(motivo)
-    return {"motivo_total":motivo_total,"num_motivos_por_agente":num_motivos}
+    """ return {"motivo_total":motivo_total,"num_motivos_por_agente":num_motivos,"nombre_motivo":motivo} """
+    return {"motivo_total":motivo_total,"nombre_motivo":motivo}
 
 if __name__ == "__main__":
     app.run(debug=True)

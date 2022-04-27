@@ -2,7 +2,7 @@ import React, { useEffect, useState } from 'react';
 import Axios from 'axios';
 
 const EjemploPOST = (props) => {
-    const [data,setData] = useState([{}])
+    const [data,setData] = useState("")
     const [loading,setLoading] = useState(true)
     const [dateI,setDateI] = useState({})
     const [dateF,setDateF] = useState({})
@@ -10,24 +10,22 @@ const EjemploPOST = (props) => {
       fetch("/fecha",{
         method: 'POST',
         body: JSON.stringify({
-            dateInit: dateI,
-            dateEnd: dateF
+            data:data
         })
         }).then(
-            console.log("enviando mediante POST"),
-            setLoading(false)
+            console.log("enviando mediante POST, data: ",data)
       )
     }
-    React.useEffect(()=>{
+    useEffect(()=>{
       ingresarFechas()         
-    },[dateI,dateF]           
+    },[data]           
   )
     return (
       <>
         <form>
-          <label htmlFor="fname">fecha:</label>
-          <input onChange={set} type="text" id="fname" name="fname"/>
-       </form>
+              <label htmlFor="ldata">Data:</label>
+              <input onChange={e=>setData(e.target.value)} value={data} type="text" id="ldata" name="ldata"/>
+            </form>
       </>
       
     )

@@ -22,6 +22,7 @@ const CalendarsContainer = () => {
   const [value, setValue] = React.useState(formatDate(new Date()));
   const [value2, setValue2] = React.useState(formatDate(new Date()));
   const [loading, setLoading] = React.useState(true);
+
   function padTo2Digits(num) {
     return num.toString().padStart(2, '0');
   }
@@ -34,7 +35,7 @@ const CalendarsContainer = () => {
   }
 
   const ingresarFechas = ()=>{
-    fetch("/FechaREACT",{
+    fetch("/fecha",{
       method: 'POST',
       body: JSON.stringify({
           dateInit: value,

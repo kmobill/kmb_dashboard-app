@@ -25,7 +25,7 @@ const Dashboard2 = (props) => {
     const [dataCompleta, setDataCompleta]= useState([{}])
     const [loading, setLoading] = useState(true);
     const recibirAgentes = ()=>{
-      fetch("/Agentes").then(
+      fetch("/Consultas/Agentes").then(
           res => res.json()
       ).then(
           data => {
@@ -72,7 +72,7 @@ const Dashboard2 = (props) => {
         setTimeout(() => {
           setCount((count) => count + 1);
         }, 15000);
-        recibir_data()
+        recibirAgentes()
       },[count]           
     )
 
@@ -85,33 +85,47 @@ const Dashboard2 = (props) => {
     const data = [500,20,100]    
     const scores =[6,6,5,5,3,4,6,5];
     const labels = [100,200,300,400,500,600,700] 
+    const labels2 = [100,200,300,400,500,600,700,800,900,1000,1100] 
+    const scores2 =[10,2,1,3,7,2,7,8,2,10,5,4];
+    const scores3 =[1,10,3,7,11,1,4,7,1,2,3,4];
     console.log("data obtenida de app Agentes",dataCompleta['data'])
     //const labels = props.data["data"].map((label) => label)
 
-      const label_ciudades = dataCompleta['data']['ciudad_llamadas_por_ciudad']['ciudades'].map((ciudad)=>(
-        capitalizeFirstLetter(ciudad)))
-    const data_gestiones_agentes={labels: dataCompleta['data']['nombre_agente'],scores: dataCompleta['data']['gestiones_agente']}
-    const data_llamadas_cuidad={labels: label_ciudades, scores:dataCompleta['data']['ciudad_llamadas_por_ciudad']['llamadas_por_ciudad']}
+      /* const label_ciudades = dataCompleta['data']['ciudad_llamadas_por_ciudad']['ciudades'].map((ciudad)=>(
+        capitalizeFirstLetter(ciudad))) */
+    const data_gestiones_agentes={labels: labels,scores: scores}
+    const data_gestiones_agentes2={labels: labels2,scores: scores2}
+    const data_gestiones_agentes3={labels: labels2,scores: scores3}
+    /* const data_llamadas_cuidad={labels: label_ciudades, scores:dataCompleta['data']['ciudad_llamadas_por_ciudad']['llamadas_por_ciudad']} */
   return (
     <div className='container'> 
       <div className='card__group mb-3 col-12'>
-          <Card calendar= {false} width='3' title="Fecha" component = {<CalendarsContainer/>}/>
+          {/* <Card calendar= {false} width='3' title="Fecha" component = {<CalendarsContainer/>}/> */}
           {/* <Card scrolleable ={true} width='2' title="Acordeon" component = {<Acordeon data={dataCompleta['data']}/>}/> */}
-          <Card width='6' title="Grafico de barras" component = {<BarChart data={data_gestiones_agentes} />}/>
+          <Card  width='10' title="tiempo de llamadas" component = {<LineChart legend="Numero de gestiones por agente" data={data_gestiones_agentes2}/>}/>
+          
       </div>
       <div className='card__group mb-3 col-12'>
-          <Card width='3' scrolleable ={true} title="Cantidad de Gestion por Agente" component = {<Table data ={dataCompleta['data']}/>}/>
-          <Card  width='5' title="Cantidad de Gestion por Agente" component = {<LineChart legend="Numero de gestiones por agente" data={data_gestiones_agentes}/>}/>
-          <Card width='3'title="Pastel" component = {<PieChart labels={data_llamadas_cuidad.labels} scores= {data_llamadas_cuidad.scores}/>}/>
+          {/* <Card calendar= {false} width='3' title="Fecha" component = {<CalendarsContainer/>}/> */}
+          {/* <Card scrolleable ={true} width='2' title="Acordeon" component = {<Acordeon data={dataCompleta['data']}/>}/> */}
+          <Card  width='5' title="numero de fallas en funcion de los agentes" component = {<BarChart horizontal={true} data={data_gestiones_agentes2} />}/>
+          <Card  width='5' title="Grafico de barras" component = {<BarChart horizontal={true} data={data_gestiones_agentes3} />}/>
+          
       </div>
       <div className='card__group mb-3 col-12'>
+          {/* <Card width='3' scrolleable ={true} title="Cantidad de Gestion por Agente" component = {<Table data ={dataCompleta['data']}/>}/> */}
+          <Card  width='6' title="Cantidad de llamadas exitosas por agente" component = {<LineChart legend="Numero de gestiones por agente" data={data_gestiones_agentes}/>}/>
+          <Card width='4'title="Pastel" component = {<PieChart labels={data_gestiones_agentes.labels} scores= {data_gestiones_agentes.scores}/>}/>
+      </div>
+
+      {/* <div className='card__group mb-3 col-12'>
           <Card table={true} width='12' scrolleable ={true} title="Motivos recibidos en función del agente" component = {<Table_motivos data ={dataCompleta['data']}/>}/>
       </div> 
       <div className='card__group mb-3 col-12'>
           <Card radio='100' width='4' title="Motivos de llamadas" component = {<PieChart labels= {dataCompleta['data']['nombre_motivo']}scores={dataCompleta['data']['motivo_total'][0]}/>}/>
-          {/* <Card width='3' title="Grafico de barras" component = {<BarChart data={data_gestiones_agentes} horizontal={true}/>}/> */}
+          
           <Card width='7' scrolleable ={true} title="Grafico de barras" component = {<BarChart data={data_llamadas_cuidad} horizontal={false}/>}/>
-      </div>       
+      </div>    */}    
     </div>  
     )
   }
